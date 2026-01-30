@@ -20,8 +20,6 @@ useSeoMeta({
 
 <template>
   <UApp>
-    <UHeader title="AI Agent" />
-
     <UMain>
       <NuxtLayout>
         <NuxtPage />
