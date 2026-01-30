@@ -59,17 +59,18 @@ const getMessageTextCharacters = (parts: ChatMessageProps['parts']) => parts
       >
         <UChatMessages should-auto-scroll>
           <UChatMessage
-            v-for="item in messages"
+            v-for="(item, index) in messages"
             :id="item.id"
             :key="item.id"
             :parts="item.parts"
             :role="item.role"
             :side="item.role === 'assistant' ? 'left' : 'right'"
             :variant="item.role === 'assistant' ? 'subtle' : 'solid'"
+            :data-testid="`app-chat-panel-message-${item.role}-${index}`"
           >
             <!-- Only apply the VueWriter component to assistant messages -->
             <template
-              v-if="item.role === 'assistant'"
+              v-if="item.role === 'assistant' && $config.public.isAnimationEnabled"
               #content
             >
               <TypewriterAnimation
@@ -89,8 +90,12 @@ const getMessageTextCharacters = (parts: ChatMessageProps['parts']) => parts
             side="left"
             variant="naked"
             :parts="[{ type: 'text', text: 'Thinking...' }]"
+            data-testid="app-chat-panel-message-assistant-thinking"
           >
-            <template #content>
+            <template
+              v-if="$config.public.isAnimationEnabled"
+              #content
+            >
               <div class="flex items-center">
                 Thinking
                 <TypewriterAnimation
@@ -109,6 +114,7 @@ const getMessageTextCharacters = (parts: ChatMessageProps['parts']) => parts
             v-model="prompt"
             autofocus
             placeholder="How can I help you today?"
+            data-testid="app-chat-panel-prompt-input"
             @submit="emit('prompt-submitted')"
           >
             <UChatPromptSubmit
@@ -126,6 +132,7 @@ const getMessageTextCharacters = (parts: ChatMessageProps['parts']) => parts
                   <UIcon
                     :name="item.icon"
                     class="my-auto text-lg"
+                    :data-testid="`app-chat-panel-model-dropdown-item-icon-${item.key}`"
                   />
                 </template>
                 <UButton
@@ -139,6 +146,7 @@ const getMessageTextCharacters = (parts: ChatMessageProps['parts']) => parts
                     leadingIcon: 'text-gray-500',
                     trailingIcon: 'text-gray-500'
                   }"
+                  data-testid="app-chat-panel-model-select-button"
                 >
                   {{ selectedModel?.name }}
                 </UButton>

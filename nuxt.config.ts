@@ -4,10 +4,34 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/ui',
     '@nuxt/scripts',
-    '@nuxt/test-utils',
+    '@nuxt/test-utils/module',
     '@pinia/nuxt',
     'nuxt-charts'
   ],
+
+  $development: {
+    runtimeConfig: {
+      public: {
+        isAnimationEnabled: true
+      }
+    }
+  },
+
+  $production: {
+    runtimeConfig: {
+      public: {
+        isAnimationEnabled: true
+      }
+    }
+  },
+
+  $test: {
+    runtimeConfig: {
+      public: {
+        isAnimationEnabled: false
+      }
+    }
+  },
 
   devtools: {
     enabled: true
