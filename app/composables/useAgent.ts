@@ -58,7 +58,7 @@ export const useAgent = () => {
           action: null
         })
       },
-      Math.floor(Math.random() * 1000) + 2000
+      Math.floor(Math.random() * 3000) + 1000
       )
     })
   }

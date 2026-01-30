@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const { startConversation, sendMessage, isAgentThinking } = useChat()
+import { AI_MODELS } from '@@/shared/constants/ai-models'
+
+const { startConversation, sendMessage, isAgentThinking, selectedModel } = useChat()
 const conversationsStore = useMyConversationsStore()
 
 const prompt = ref<string>('')
@@ -30,8 +32,10 @@ const widgetData = computed(() => {
   <UDashboardGroup>
     <AppChatPanel
       v-model:prompt="prompt"
+      v-model:selected-model-key="selectedModel"
       :conversation="conversationsStore.activeConversation"
       :is-agent-thinking="isAgentThinking"
+      :models="AI_MODELS"
       @prompt-submitted="submitPrompt"
     />
 

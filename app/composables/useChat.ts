@@ -3,6 +3,8 @@ export const useChat = () => {
   const { prompt, isThinking } = useAgent()
   const toast = useToast()
 
+  const selectedModel = ref<AIModelKey>(AIModelKey.GPT_4o)
+
   const startConversation = () => {
     const newConversation: Conversation = {
       id: crypto.randomUUID(),
@@ -42,6 +44,7 @@ export const useChat = () => {
   return {
     startConversation,
     sendMessage,
-    isAgentThinking: isThinking
+    isAgentThinking: isThinking,
+    selectedModel
   }
 }

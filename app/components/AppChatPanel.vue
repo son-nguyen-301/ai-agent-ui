@@ -4,6 +4,7 @@ import type { ChatMessageProps } from '@nuxt/ui'
 type Props = {
   conversation?: Conversation
   isAgentThinking?: boolean
+  models?: AIModel[]
 }
 
 type Emits = {
@@ -11,6 +12,7 @@ type Emits = {
 }
 
 const prompt = defineModel<string>('prompt', { required: true })
+const selectedModelKey = defineModel<AIModelKey>('selectedModelKey', { required: true })
 
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
@@ -24,6 +26,12 @@ const messages = computed<Pick<ChatMessageProps, 'id' | 'role' | 'parts'>[]>(() 
       text: item.message
     }
   ]
+})) ?? [])
+
+const selectedModel = computed(() => props.models?.find(model => model.key === selectedModelKey.value))
+const modelOptions = computed(() => props.models?.map(model => ({
+  ...model,
+  onSelect: () => selectedModelKey.value = model.key
 })) ?? [])
 
 const getMessageTextCharacters = (parts: ChatMessageProps['parts']) => parts
@@ -46,7 +54,9 @@ const getMessageTextCharacters = (parts: ChatMessageProps['parts']) => parts
     </template>
 
     <template #body>
-      <UChatPalette class="bg-black">
+      <UChatPalette
+        class="bg-black"
+      >
         <UChatMessages should-auto-scroll>
           <UChatMessage
             v-for="item in messages"
@@ -100,7 +110,41 @@ const getMessageTextCharacters = (parts: ChatMessageProps['parts']) => parts
             autofocus
             placeholder="How can I help you today?"
             @submit="emit('prompt-submitted')"
-          />
+          >
+            <UChatPromptSubmit
+              class="rounded-full mr-2"
+              color="neutral"
+            />
+
+            <template #footer>
+              <UDropdownMenu
+                :items="modelOptions"
+                label-key="name"
+                value-key="key"
+              >
+                <template #item-leading="{ item }">
+                  <UIcon
+                    :name="item.icon"
+                    class="my-auto text-lg"
+                  />
+                </template>
+                <UButton
+                  class="ml-2 rounded-xl"
+                  color="neutral"
+                  size="lg"
+                  variant="ghost"
+                  :leading-icon="selectedModel?.icon"
+                  trailing-icon="i-heroicons-chevron-down"
+                  :ui="{
+                    leadingIcon: 'text-gray-500',
+                    trailingIcon: 'text-gray-500'
+                  }"
+                >
+                  {{ selectedModel?.name }}
+                </UButton>
+              </UDropdownMenu>
+            </template>
+          </UChatPrompt>
         </template>
       </UChatPalette>
     </template>
