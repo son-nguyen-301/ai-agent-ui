@@ -5,9 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch, onUnmounted } from 'vue'
-
-interface Props {
+type Props = {
   text: string
   speed?: number
   pauseTime?: number
@@ -24,36 +22,35 @@ const props = withDefaults(defineProps<Props>(), {
 
 const displayedText = ref('')
 const currentIndex = ref(0)
-let typingInterval: ReturnType<typeof setInterval> | null = null
-let pauseTimeout: ReturnType<typeof setTimeout> | null = null
-let delayTimeout: ReturnType<typeof setTimeout> | null = null
+
+const typingInterval = ref<ReturnType<typeof setInterval> | null>(null)
+const pauseTimeout = ref<ReturnType<typeof setTimeout> | null>(null)
+const delayTimeout = ref<ReturnType<typeof setTimeout> | null>(null)
 
 const startTyping = () => {
-  if (props.delay > 0) {
-    delayTimeout = setTimeout(() => {
-      typeCharacter()
-    }, props.delay)
-  } else {
+  if (props.delay <= 0) {
     typeCharacter()
+
+    return
   }
+
+  delayTimeout.value = setTimeout(typeCharacter, props.delay)
 }
 
 const typeCharacter = () => {
-  if (currentIndex.value < props.text.length) {
-    displayedText.value = props.text.substring(0, currentIndex.value + 1)
-    currentIndex.value++
-
-    typingInterval = setTimeout(() => {
-      typeCharacter()
-    }, props.speed)
-  } else {
+  if (currentIndex.value >= props.text.length) {
     // Complete text displayed
     if (props.isInfinite) {
-      pauseTimeout = setTimeout(() => {
-        resetTyping()
-      }, props.pauseTime)
+      pauseTimeout.value = setTimeout(resetTyping, props.pauseTime)
     }
+
+    return
   }
+
+  displayedText.value = props.text.substring(0, currentIndex.value + 1)
+  currentIndex.value++
+
+  typingInterval.value = setTimeout(typeCharacter, props.speed)
 }
 
 const resetTyping = () => {
@@ -64,59 +61,32 @@ const resetTyping = () => {
 
 // Watch for text changes and restart animation
 watch(() => props.text, () => {
-  if (typingInterval) {
-    clearTimeout(typingInterval)
+  if (typingInterval.value) {
+    clearTimeout(typingInterval.value)
   }
 
-  if (pauseTimeout) {
-    clearTimeout(pauseTimeout)
+  if (pauseTimeout.value) {
+    clearTimeout(pauseTimeout.value)
   }
 
-  if (delayTimeout) {
-    clearTimeout(delayTimeout)
+  if (delayTimeout.value) {
+    clearTimeout(delayTimeout.value)
   }
 
   resetTyping()
 }, { immediate: true })
 
 onUnmounted(() => {
-  if (typingInterval) {
-    clearTimeout(typingInterval)
+  if (typingInterval.value) {
+    clearTimeout(typingInterval.value)
   }
 
-  if (pauseTimeout) {
-    clearTimeout(pauseTimeout)
+  if (pauseTimeout.value) {
+    clearTimeout(pauseTimeout.value)
   }
 
-  if (delayTimeout) {
-    clearTimeout(delayTimeout)
+  if (delayTimeout.value) {
+    clearTimeout(delayTimeout.value)
   }
 })
 </script>
-
-<style scoped>
-.typewriter-text {
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
-.typewriter-cursor {
-  display: inline-block;
-  animation: blink 1s infinite;
-  font-weight: bold;
-}
-
-@keyframes blink {
-  0%, 50% {
-    opacity: 1;
-  }
-  51%, 100% {
-    opacity: 0;
-  }
-}
-
-/* Optional hover effect */
-.typewriter-container:hover .typewriter-cursor {
-  animation-play-state: paused;
-}
-</style>
