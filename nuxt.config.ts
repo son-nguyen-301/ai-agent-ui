@@ -3,9 +3,9 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
     '@nuxt/ui',
-    '@nuxt/hints',
     '@nuxt/scripts',
-    '@nuxt/test-utils'
+    '@nuxt/test-utils',
+    '@pinia/nuxt'
   ],
 
   devtools: {
@@ -19,6 +19,20 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2025-01-15',
+
+  typescript: {
+    typeCheck: true,
+    tsConfig: {
+      compilerOptions: {
+        strict: true
+      }
+    },
+    nodeTsConfig: {
+      compilerOptions: {
+        strict: true
+      }
+    }
+  },
 
   eslint: {
     config: {
