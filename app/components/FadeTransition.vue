@@ -7,7 +7,7 @@
   </Transition>
 </template>
 
-<style>
+<style lang="scss" scoped>
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s ease;

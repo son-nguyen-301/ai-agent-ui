@@ -25,6 +25,10 @@ const messages = computed<Pick<ChatMessageProps, 'id' | 'role' | 'parts'>[]>(() 
     }
   ]
 })) ?? [])
+
+const getMessageTextCharacters = (parts: ChatMessageProps['parts']) => parts
+  .filter(part => part.type === 'text')
+  .map(part => part.text).join('')
 </script>
 
 <template>
@@ -43,7 +47,7 @@ const messages = computed<Pick<ChatMessageProps, 'id' | 'role' | 'parts'>[]>(() 
 
     <template #body>
       <UChatPalette class="bg-black">
-        <UChatMessages>
+        <UChatMessages should-auto-scroll>
           <UChatMessage
             v-for="item in messages"
             :id="item.id"
@@ -52,7 +56,19 @@ const messages = computed<Pick<ChatMessageProps, 'id' | 'role' | 'parts'>[]>(() 
             :role="item.role"
             :side="item.role === 'assistant' ? 'left' : 'right'"
             :variant="item.role === 'assistant' ? 'subtle' : 'solid'"
-          />
+          >
+            <!-- Only apply the VueWriter component to assistant messages -->
+            <template
+              v-if="item.role === 'assistant'"
+              #content
+            >
+              <TypewriterAnimation
+                :text="getMessageTextCharacters(item.parts)"
+                :speed="10"
+                :is-infinite="false"
+              />
+            </template>
+          </UChatMessage>
 
           <!-- Show a thinking message if the agent is thinking -->
           <UChatMessage
@@ -63,7 +79,19 @@ const messages = computed<Pick<ChatMessageProps, 'id' | 'role' | 'parts'>[]>(() 
             side="left"
             variant="naked"
             :parts="[{ type: 'text', text: 'Thinking...' }]"
-          />
+          >
+            <template #content>
+              <div class="flex items-center">
+                Thinking
+                <TypewriterAnimation
+                  text="..."
+                  :speed="150"
+                  is-infinite
+                  :pause-time="500"
+                />
+              </div>
+            </template>
+          </UChatMessage>
         </UChatMessages>
 
         <template #prompt>
