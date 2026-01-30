@@ -19,7 +19,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <UApp>
+  <UApp :toaster="{ position: 'bottom-center' }">
     <UMain>
       <NuxtLayout>
         <NuxtPage />

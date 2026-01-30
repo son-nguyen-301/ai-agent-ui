@@ -3,6 +3,7 @@ import { AI_MODELS } from '@@/shared/constants/ai-models'
 
 const { startConversation, sendMessage, isAgentThinking, selectedModel } = useChat()
 const conversationsStore = useMyConversationsStore()
+const toast = useToast()
 
 const prompt = ref<string>('')
 
@@ -11,6 +12,15 @@ if (!conversationsStore.conversations.length) {
 }
 
 const submitPrompt = () => {
+  if (isAgentThinking.value) {
+    toast.add({
+      title: 'Please wait for the agent to finish thinking',
+      color: 'warning'
+    })
+
+    return
+  }
+
   sendMessage(prompt.value)
   prompt.value = ''
 }
