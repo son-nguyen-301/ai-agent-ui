@@ -5,7 +5,6 @@ export const SALES_DATA = [
     platform: 'Steam',
     price: 59.99,
     discount: 15,
-    genre: 'Action RPG',
     purchaseDate: '2024-01-20',
     customer: 'john.doe@email.com'
   },
@@ -15,7 +14,6 @@ export const SALES_DATA = [
     platform: 'GOG',
     price: 49.99,
     discount: 25,
-    genre: 'Action RPG',
     purchaseDate: '2024-01-25',
     customer: 'jane.smith@email.com'
   },
@@ -25,7 +23,6 @@ export const SALES_DATA = [
     platform: 'Steam',
     price: 39.99,
     discount: 20,
-    genre: 'Action RPG',
     purchaseDate: '2024-01-18',
     customer: null
   },
@@ -35,7 +32,6 @@ export const SALES_DATA = [
     platform: 'PlayStation Store',
     price: 69.99,
     discount: 10,
-    genre: 'Action Adventure',
     purchaseDate: '2024-01-30',
     customer: 'mike.wilson@email.com'
   },
@@ -45,7 +41,6 @@ export const SALES_DATA = [
     platform: 'Steam',
     price: 44.99,
     discount: 15,
-    genre: 'Action RPG',
     purchaseDate: '2024-01-22',
     customer: null
   },
@@ -55,7 +50,6 @@ export const SALES_DATA = [
     platform: 'PlayStation Store',
     price: 79.99,
     discount: 5,
-    genre: 'Action Adventure',
     purchaseDate: '2024-02-01',
     customer: null
   },
@@ -65,7 +59,6 @@ export const SALES_DATA = [
     platform: 'Steam',
     price: 54.99,
     discount: 20,
-    genre: 'RPG',
     purchaseDate: '2024-01-23',
     customer: 'sarah.davis@email.com'
   },
@@ -75,7 +68,6 @@ export const SALES_DATA = [
     platform: 'Battle.net',
     price: 69.99,
     discount: 12,
-    genre: 'FPS',
     purchaseDate: '2024-01-29',
     customer: null
   },
@@ -85,7 +77,6 @@ export const SALES_DATA = [
     platform: 'Xbox Store',
     price: 59.99,
     discount: 18,
-    genre: 'Sci-Fi RPG',
     purchaseDate: '2024-02-05',
     customer: 'alex.brown@email.com'
   },
@@ -95,7 +86,6 @@ export const SALES_DATA = [
     platform: 'Battle.net',
     price: 89.99,
     discount: 8,
-    genre: 'Action RPG',
     purchaseDate: '2024-01-12',
     customer: null
   }

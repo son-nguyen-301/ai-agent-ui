@@ -12,6 +12,18 @@ const submitPrompt = () => {
   sendMessage(prompt.value)
   prompt.value = ''
 }
+
+const widgetData = computed(() => {
+  if (!conversationsStore.lastAgentMessage) {
+    return null
+  }
+
+  if (conversationsStore.lastAgentMessage.action?.type === 'render_widget') {
+    return conversationsStore.lastAgentMessage.action
+  }
+
+  return null
+})
 </script>
 
 <template>
@@ -22,6 +34,7 @@ const submitPrompt = () => {
       :is-agent-thinking="isAgentThinking"
       @prompt-submitted="submitPrompt"
     />
-    <AppDynamicWidgetPanel />
+
+    <AppDynamicWidgetPanel :widget-data="widgetData" />
   </UDashboardGroup>
 </template>

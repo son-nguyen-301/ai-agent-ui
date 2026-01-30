@@ -6,6 +6,12 @@ export const useMyConversationsStore = defineStore('conversationsStore', () => {
     return conversations.value.find(conversation => conversation.id === activeConversationId.value)
   })
 
+  const lastAgentMessage = computed(() => activeConversation.value?.messages
+    .filter(message => ('action' in message))
+    .filter(message => message.action !== null)
+    .at(-1)
+  )
+
   const updateActiveConversation = (
     message: ConversationAgentReplyPayload | ConversationUserMessagePayload
   ) => {
@@ -31,6 +37,7 @@ export const useMyConversationsStore = defineStore('conversationsStore', () => {
     conversations,
     activeConversationId,
     activeConversation,
+    lastAgentMessage,
     updateActiveConversation
   }
 })

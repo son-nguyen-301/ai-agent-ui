@@ -4,7 +4,6 @@ export type SalesData = {
   platform: string
   price: number
   discount: number
-  genre: string
   purchaseDate: string
   customer: string | null
 }
