@@ -6,12 +6,18 @@ type Props = {
 
 const props = defineProps<Props>()
 
+/**
+ * Map the `value` key to `Sales` for the chart legend.
+ */
 const categories = computed(() => ({
   value: {
     name: 'Sales'
   }
 }))
 
+/**
+ * Format the x-axis labels to display the month name.
+ */
 const xFormatter = (index: number) => props.data[index]?.month ?? ''
 </script>
 

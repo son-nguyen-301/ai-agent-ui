@@ -11,6 +11,7 @@ defineProps<Props>()
     <template
       #body
     >
+      <!-- I will explain why I use this pattern if we have the chance to discuss it :D -->
       <FadeTransition v-if="widgetData">
         <LazySalesChart
           v-if="widgetData.component === 'SalesChart'"
@@ -27,6 +28,7 @@ defineProps<Props>()
         />
       </FadeTransition>
 
+      <!-- Show an empty state if there is no widget data -->
       <UEmpty
         v-else
         title="Widget that contains data will be displayed here to help you visualize the data"

@@ -8,6 +8,9 @@ type Props = {
 
 defineProps<Props>()
 
+/**
+ * Map the data properties to the table column names.
+ */
 const columns: TableColumn<SalesData>[] = [
   {
     accessorKey: 'id',

@@ -1,3 +1,6 @@
+/**
+ * Chat composable to handle the chat functionality and conversation management.
+ */
 export const useChat = () => {
   const conversationsStore = useMyConversationsStore()
   const { prompt, isThinking } = useAgent()
@@ -42,9 +45,21 @@ export const useChat = () => {
     conversationsStore.updateActiveConversation(reply)
   }
   return {
+    /**
+     * Start a new conversation.
+     */
     startConversation,
+    /**
+     * Send a message to the agent.
+     */
     sendMessage,
+    /**
+     * Whether the agent is thinking.
+     */
     isAgentThinking: isThinking,
+    /**
+     * The selected AI model.
+     */
     selectedModel
   }
 }

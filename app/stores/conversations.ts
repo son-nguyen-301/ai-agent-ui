@@ -1,3 +1,6 @@
+/**
+ * Conversations store to manage the conversations and active conversation.
+ */
 export const useMyConversationsStore = defineStore('conversationsStore', () => {
   const conversations = ref<Conversation[]>([])
   const activeConversationId = ref<string | null>(null)
@@ -13,6 +16,9 @@ export const useMyConversationsStore = defineStore('conversationsStore', () => {
   )
 
   const updateActiveConversation = (
+    /**
+     * The message to update the active conversation with.
+     */
     message: ConversationAgentReplyPayload | ConversationUserMessagePayload
   ) => {
     const conversationIndexToUpdate = conversations.value.findIndex(conversation => conversation.id === activeConversationId.value)
@@ -34,10 +40,25 @@ export const useMyConversationsStore = defineStore('conversationsStore', () => {
   }
 
   return {
+    /**
+     * User's conversations.
+     */
     conversations,
+    /**
+     * The current conversation ID.
+     */
     activeConversationId,
+    /**
+     * The current conversation.
+     */
     activeConversation,
+    /**
+     * The last agent message that has an action.
+     */
     lastAgentMessage,
+    /**
+     * Update the active conversation.
+     */
     updateActiveConversation
   }
 })

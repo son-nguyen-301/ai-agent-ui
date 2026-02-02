@@ -1,3 +1,6 @@
+/**
+ * Sales data for the sales data table.
+ */
 export const SALES_DATA = [
   {
     id: 'GK-2024-001',
@@ -91,6 +94,9 @@ export const SALES_DATA = [
   }
 ]
 
+/**
+ * Sales data for the sales chart.
+ */
 export const SALES_CHART_DATA = [
   {
     month: 'July',

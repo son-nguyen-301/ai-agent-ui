@@ -6,10 +6,25 @@
 
 <script lang="ts" setup>
 type Props = {
+  /**
+   * The text that need to be typed.
+   */
   text: string
+  /**
+   * The speed of the typing animation.
+   */
   speed?: number
+  /**
+   * The time to pause between each loop of the typing animation.
+   */
   pauseTime?: number
+  /**
+   * Whether the typing animation should loop infinitely.
+   */
   isInfinite?: boolean
+  /**
+   * The delay before the typing animation starts.
+   */
   delay?: number
 }
 
@@ -20,11 +35,26 @@ const props = withDefaults(defineProps<Props>(), {
   delay: 0
 })
 
+/**
+ * The text that is displayed.
+ */
 const displayedText = ref('')
+/**
+ * The current index of the text that is displayed.
+ */
 const currentIndex = ref(0)
 
+/**
+ * The interval for the typing animation.
+ */
 const typingInterval = ref<ReturnType<typeof setInterval> | null>(null)
+/**
+ * The timeout for the pause between each loop of the typing animation.
+ */
 const pauseTimeout = ref<ReturnType<typeof setTimeout> | null>(null)
+/**
+ * The timeout for the delay before the typing animation starts.
+ */
 const delayTimeout = ref<ReturnType<typeof setTimeout> | null>(null)
 
 const startTyping = () => {

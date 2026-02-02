@@ -1,5 +1,8 @@
 import { AIModelKey, type AIModel } from '@@/shared/types/ai-models'
 
+/**
+ * List of available AI models.
+ */
 export const AI_MODELS: AIModel[] = [
   {
     key: AIModelKey.GPT_4o,

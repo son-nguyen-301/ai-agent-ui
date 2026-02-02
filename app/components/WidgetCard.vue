@@ -8,6 +8,7 @@ defineProps<Props>()
 </script>
 
 <template>
+  <!-- Just a simple card for widgets -->
   <div>
     <h3 class="text-lg font-semibold mb-4">
       {{ title }}

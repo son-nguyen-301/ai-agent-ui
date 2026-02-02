@@ -1,5 +1,8 @@
 import { SALES_CHART_DATA, SALES_DATA } from '@@/shared/constants/sales'
 
+/**
+ * Agent composable to handle the AI agent logic and response generation.
+ */
 export const useAgent = () => {
   const isThinking = ref(false)
 
@@ -64,7 +67,13 @@ export const useAgent = () => {
   }
 
   return {
+    /**
+     * Whether the agent is thinking.
+     */
     isThinking,
+    /**
+     * Prompt function to send a message to the agent.
+     */
     prompt
   }
 }

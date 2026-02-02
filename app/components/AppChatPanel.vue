@@ -17,6 +17,7 @@ const selectedModelKey = defineModel<AIModelKey>('selectedModelKey', { required:
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
+// Map the conversation messages to the ChatMessageProps format for the UChatMessages component
 const messages = computed<Pick<ChatMessageProps, 'id' | 'role' | 'parts'>[]>(() => props.conversation?.messages.map((item, index) => ({
   id: index.toString(),
   role: 'action' in item ? 'assistant' : 'user',
@@ -29,11 +30,17 @@ const messages = computed<Pick<ChatMessageProps, 'id' | 'role' | 'parts'>[]>(() 
 })) ?? [])
 
 const selectedModel = computed(() => props.models?.find(model => model.key === selectedModelKey.value))
+/**
+ * The model options for the dropdown with action to update the selectedModelKey.
+ */
 const modelOptions = computed(() => props.models?.map(model => ({
   ...model,
   onSelect: () => selectedModelKey.value = model.key
 })) ?? [])
 
+/**
+ * Get the text characters from the message parts.
+ */
 const getMessageTextCharacters = (parts: ChatMessageProps['parts']) => parts
   .filter(part => part.type === 'text')
   .map(part => part.text).join('')
