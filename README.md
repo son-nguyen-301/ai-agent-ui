@@ -2,6 +2,9 @@
 
 A modern, interactive AI agent interface built with Nuxt 4, featuring dynamic widget rendering, chat-based interactions, and data visualization capabilities.
 
+- Live demo: [https://ai-agent-ui.haison143.workers.dev/](https://ai-agent-ui.haison143.workers.dev/)
+- Loom video: [https://www.loom.com/share/f06c182dab5d4a1c9d96ff931c30825c](https://www.loom.com/share/f06c182dab5d4a1c9d96ff931c30825c)
+
 ## 📋 Table of Contents
 
 - [Project Overview](#🎯-project-overview)
